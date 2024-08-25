@@ -1,0 +1,27 @@
+header {
+	background: #ddd;
+}
+footer {
+	background: #ccc;
+}
+#home {
+	background: aqua;
+}
+#members {
+	background: lightblue;
+}
+#posts {
+	background: lightgreen;
+}
+#gallery {
+	background: orange;
+}
+#youtube {
+	background: pink;
+}
+#contact {
+	background: violet;
+}
+#join {
+	background: lightsalmon;
+}
