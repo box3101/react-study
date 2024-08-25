@@ -25,3 +25,7 @@ footer {
 #join {
 	background: lightsalmon;
 }
+
+header ul li.on a{
+	color: red;
+}
