@@ -2,44 +2,40 @@ import Layout from "../components/Layout";
 import { useState, useEffect } from "react";
 
 function Members() {
-	const [Members, setMembers] = useState([]);
+	console.log("Members Render");
+	//Members: 원본 배열 데이터
+	const [Members, setMembers] = useState([
+		{ name: "David", position: "President", pic: "david.jpg" },
+		{ name: "Emily", position: "Vice President", pic: "emily.jpg" },
+		{ name: "Emma", position: "UI Designer", pic: "emma.jpg" },
+		{ name: "Julia", position: "Front-end Engineer", pic: "julia.jpg" },
+		{ name: "Michael", position: "Back-end Engineer", pic: "michael.jpg" },
+		{ name: "Peter", position: "Project Manager", pic: "peter.jpg" }
+	]);
 
-	//useEffect(콜백함수, 의존성배열)
-	//useEffect호출시 의존성배열이 비어있으면
-	//같이 인수로 전달된 콜백함수는 컴포넌트 마운트시 딱 한번만 실행됨
-	useEffect(() => {
-		fetch("/members.json")
-			.then(data => data.json())
-			.then(data => {
-				console.log(data.members);
-				setMembers(data.members);
-			});
-	}, []);
+	//변경될 데이터가 자잘하게 여러개일때
+	const newMembers = [
+		{ name: "Tom", position: "President", pic: "david.jpg" },
+		{ name: "Emily", position: "Vice President", pic: "emily.jpg" },
+		{ name: "Emma", position: "UI Designer", pic: "emma.jpg" },
+		{ name: "Julia", position: "Front-end Engineer", pic: "julia.jpg" },
+		{ name: "Michael", position: "Back-end Engineer", pic: "michael.jpg" },
+		{ name: "Peter", position: "Project Leader", pic: "peter.jpg" }
+	];
 
-	//클라이언트단에서 Mebembers컴포넌트 함수가 호출되자마자 web api로 서버 데이터 가져옴
-	//아래와 같은 로직으로는 컴포넌트가 무한호출되는 문제 발생
-	//무한로딩이 일어나름 흐름
-	//1. 빈배열 state값을 가지고 있는 컴포넌트함수 호출됨
-	//2. 호출되자마자 fetch로 서버쪽 데이터 요청후 기존 state값 변경처리
-	//3. 리액트는 Members라는 state가 변경되었기 때문에 다시 함수 재호출
-	//4. 1,2,3단계가 무한 반복됨
-	//해결 방법: 컴포넌트가 처음 렌더링(호출)되었을때에만 fetch가 실행되도록 강제처리
-
-	//컴포넌트의 생명주기관리 (Life Cycle) (생성 Mount, 변경 (ReRender), 소멸 UnMount)
-	//리액트의 useEffect라는 hook을 통해서 컴포넌트의 3가지 생명주기에 따른 로직을 설정
-
-	// fetch("/members.json")
-	// 	.then(data => data.json())
-	// 	.then(data => {
-	// 		console.log(data.members);
-	// 		setMembers(data.members);
-	// 	});
+	const changeMembers = () => {
+		setMembers(newMembers);
+	};
 
 	return (
 		<Layout title={"Members"}>
+			<button className="btn" onClick={changeMembers}>
+				멤버번경
+			</button>
+			<br />
 			{Members.map(({ name, position, pic }, idx) => (
-				<article key={idx}>
-					<img src={"/" + pic} alt={name} />
+				<article key={idx} className="m-2 inline-block">
+					<img src={"/" + pic} alt={name} className="w-24" />
 					<h3>{name}</h3>
 					<p>{position}</p>
 				</article>
