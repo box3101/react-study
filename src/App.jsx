@@ -7,7 +7,7 @@ function App() {
 	console.log(pageData);
 	return (
 		<>
-			{/* <Header /> */}
+			<Header />
 
 			<Routes>
 				{pageData.map((data, idx) => {
