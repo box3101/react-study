@@ -1,5 +1,5 @@
+import { useState } from "react";
 import Layout from "../components/Layout";
-import { useState, useEffect } from "react";
 
 function Members() {
 	console.log("Members Render");
@@ -13,50 +13,38 @@ function Members() {
 		{ name: "Peter", position: "Project Manager", pic: "peter.jpg" }
 	]);
 
-	//변경될 데이터가 자잘하게 여러개일때
-	const newMembers = [
-		{ name: "Tom", position: "President", pic: "david.jpg" },
-		{ name: "Emily", position: "Vice President", pic: "emily.jpg" },
-		{ name: "Emma", position: "UI Designer", pic: "emma.jpg" },
-		{ name: "Julia", position: "Front-end Engineer", pic: "julia.jpg" },
-		{ name: "Michael", position: "Back-end Engineer", pic: "michael.jpg" },
-		{ name: "Peter", position: "Project Leader", pic: "peter.jpg" }
-	];
-
-	const changeMembers = () => {
+	//각 사용자 데이터를 관리자페이지처럼 직접 변경해야 하는 경우
+	//변경할 원본 데이터가 너무 방대해서 통으로 복사해서 변경할 데이터를 만들기 어려운 경우
+	//방법 : 각 데이터별로 이벤트 핸들러를 등록해서 해당 이벤트가 발생한 순번의 데이터만 변경하도록 처리
+	const changeInfo = e => {
+		//클릭한 버튼 요소의 부모에서 다시 자식요소중 name값이 mName인 input값을 가져옴
+		const inputValue = e.target.parentElement.children.mName.value;
+		//기존 state정보 DeepCopy
+		const newMembers = [...Members];
+		//복사된 배열값에서 data-index로 넘긴 순서정보값의 객체에서 name값을 위에서 구한 input정보로 변경
+		newMembers[e.target.dataset.index].name = inputValue;
+		//변경된 정보값을 통채로 setMembers로 state변경처리하고
 		setMembers(newMembers);
+		//기존 input요소의 값 비워줌
+		e.target.parentElement.children.mName.value = "";
 	};
 
 	return (
-		<Layout title={"Members"}>
-			<button className="btn" onClick={changeMembers}>
-				멤버번경
-			</button>
-			<br />
+		<Layout title={"MEMBERS"}>
 			{Members.map(({ name, position, pic }, idx) => (
 				<article key={idx} className="m-2 inline-block">
 					<img src={"/" + pic} alt={name} className="w-24" />
 					<h3>{name}</h3>
 					<p>{position}</p>
+					<input type="text" name="mName" className="border border-black" />
+					<br />
+					{/* 각 버튼 클릭시 changeInfo함수 호출, data-index속성에 현재 반복 순서정보 전달 */}
+					<button className="btn text-xs" data-index={idx} onClick={changeInfo}>
+						멤버 데이터 변경
+					</button>
 				</article>
 			))}
 		</Layout>
 	);
 }
-
 export default Members;
-
-/*
-	리액트에서 불변성 (immutable)
-	-리액트에서 다루는 중요한 데이터는 모두 불변성을 유지해야됨
-	-원본데이터를 훼손하지 않으면 복사본을 만들고 복사본 수정
-	-리액트는 이전 원본 대비 복사본을 비교해서 변경사항이 있을때에만 화면을 재랜더링
-	-원본이 사라지면 비교할 대상이 없기 때문에 화면 재렌더링이 일어나지 않음
-	자바스크립트 엔진 : Memory Heap, CallStack (callback queue, event loop) + Web API (DOM, Ajax(HttpReques), setTimer)
-	원시형자료 : String, Number, boolean, undefined
-	메모리생성(callstack):값 (callstack)
-	참조형자료 : Array, Object
-	메모리생성(callstack): 값 (Memory Heap)
-	원시형자료같은 경우는 값자체가 실제 물리적으로 담겨있음
-	참조형자료 : 값의 참조위치값만 변수에 담겨있음
-*/
