@@ -1,52 +1,42 @@
 import Layout from "../components/Layout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Members() {
-	const [Members, setMembers] = useState([
-		{ name: "David", position: "President", pic: "david.jpg" },
-		{ name: "Emily", position: "Vice President", pic: "emily.jpg" },
-		{ name: "Emma", position: "UI Designer", pic: "emma.jpg" },
-		{ name: "Julia", position: "Front-end Engineer", pic: "julia.jpg" },
-		{ name: "Michael", position: "Back-end Engineer", pic: "michael.jpg" },
-		{ name: "Peter", position: "Project Manager", pic: "peter.jpg" }
-	]);
+	const [Members, setMembers] = useState([]);
 
-	const [Num, setNum] = useState(0);
+	//useEffect(콜백함수, 의존성배열)
+	//useEffect호출시 의존성배열이 비어있으면
+	//같이 인수로 전달된 콜백함수는 컴포넌트 마운트시 딱 한번만 실행됨
+	useEffect(() => {
+		fetch("/members.json")
+			.then(data => data.json())
+			.then(data => {
+				console.log(data.members);
+				setMembers(data.members);
+			});
+	}, []);
 
-	//아래와 같이 원시형 자료값을 일반 변수에 값을 복사처리도 리액트가 변경점을 인지함
-	const changeNum = () => {
-		let NewNum = Num;
-		NewNum = 3;
-		setNum(NewNum);
-	};
+	//클라이언트단에서 Mebembers컴포넌트 함수가 호출되자마자 web api로 서버 데이터 가져옴
+	//아래와 같은 로직으로는 컴포넌트가 무한호출되는 문제 발생
+	//무한로딩이 일어나름 흐름
+	//1. 빈배열 state값을 가지고 있는 컴포넌트함수 호출됨
+	//2. 호출되자마자 fetch로 서버쪽 데이터 요청후 기존 state값 변경처리
+	//3. 리액트는 Members라는 state가 변경되었기 때문에 다시 함수 재호출
+	//4. 1,2,3단계가 무한 반복됨
+	//해결 방법: 컴포넌트가 처음 렌더링(호출)되었을때에만 fetch가 실행되도록 강제처리
 
-	//아래의 경우처럼 데이터를 state에 담아놓고 해당 값을 state변경함수로 변경했다고 하더라도
-	//담겨있는 값이 참조형 자료이고 참조형 자료를 deep copy하지 않으면 불변성 유지가 안되므로 재랜더링 일어나지 않음
-	const changeName = () => {
-		//Members:참고링크1
-		//NewMembers: 참고링크2
-		//Mebers에 있는 참조링크1과 NewMembers에 있는 참조링크2는 메모리힙에 있는 같은 같은 데이터를 참조하고 있음 (Shalow Copy)
-		//참조형 자료를 얕은 복사한 이후에 값을 변경하면 원본데이터가 훼손됨 (불변성 유지가 안됨)
-		//리액트 입장에서는 원본이 사라졌기 때문에 비교대상이 사라져셔 화면을 재랜더링 할 수 없음
-		//리액트에서 참조형자료는 전개연산자를 이용해서 deep copy한 이후에 수정후 사용
-		//const NewMembers = Members;
-		const NewMembers = [...Members]; //참조값이 아닌 원본값을 꺼내와서 새로운 배열에 담아주는 완전복사
-		NewMembers[0].name = "Tom";
-		console.log(NewMembers);
-		setMembers(NewMembers);
-	};
+	//컴포넌트의 생명주기관리 (Life Cycle) (생성 Mount, 변경 (ReRender), 소멸 UnMount)
+	//리액트의 useEffect라는 hook을 통해서 컴포넌트의 3가지 생명주기에 따른 로직을 설정
+
+	// fetch("/members.json")
+	// 	.then(data => data.json())
+	// 	.then(data => {
+	// 		console.log(data.members);
+	// 		setMembers(data.members);
+	// 	});
 
 	return (
 		<Layout title={"Members"}>
-			<button className="btn" onClick={changeName}>
-				대표이름 변경
-			</button>
-
-			<h1>{Num}</h1>
-			<button className="btn" onClick={changeNum}>
-				숫자 변경
-			</button>
-
 			{Members.map(({ name, position, pic }, idx) => (
 				<article key={idx}>
 					<img src={"/" + pic} alt={name} />
