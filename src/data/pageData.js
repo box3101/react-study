@@ -13,7 +13,11 @@ export default [
 	{ path: "/posts", comp: Posts, name: "POSTS" },
 	{ path: "/gallery", comp: Gallery, name: "GALLERY" },
 	{ path: "/youtube", comp: Youtube, name: "YOUTUBE" },
-	{ path: "/youtube/:id", comp: YoutubeDetail, name: "YOUTUBE DETAIL" },
+	{
+		path: "/youtube/:id",
+		comp: YoutubeDetail,
+		name: "YOUTUBE DETAIL"
+	},
 	{ path: "/contact", comp: Contact, name: "CONTACT" },
 	{ path: "/join", comp: Join, name: "JOIN" }
 ];

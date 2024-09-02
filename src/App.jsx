@@ -10,13 +10,14 @@ function App() {
 			<Header />
 
 			<Routes>
-				{
-					pageData.map((data,idx)=>{
-						return(
-							<Route path={data.path} element={<data.comp/>} />
-						)
-					})
-				}
+				{pageData.map((data, idx) => {
+					return (
+						<Route
+							path={data.path}
+							element={<data.comp />}
+						/>
+					);
+				})}
 			</Routes>
 
 			<Footer />
