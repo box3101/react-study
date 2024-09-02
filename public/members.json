@@ -1,0 +1,10 @@
+{
+	"members": [
+		{ "name": "David", "position": "President", "pic": "david.jpg" },
+		{ "name": "Emily", "position": "Vice President", "pic": "emily.jpg" },
+		{ "name": "Emma", "position": "UI Designer", "pic": "emma.jpg" },
+		{ "name": "Julia", "position": "Front-end Engineer", "pic": "julia.jpg" },
+		{ "name": "Michael", "position": "Back-end Engineer", "pic": "michael.jpg" },
+		{ "name": "Peter", "position": "Project Manager", "pic": "peter.jpg" }
+	]
+}
