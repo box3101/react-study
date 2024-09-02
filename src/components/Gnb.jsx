@@ -5,7 +5,7 @@ function Gnb() {
 	const { pathname } = useLocation();
 	// /members => members.split('/') = ['', 'members']
 	return (
-		<ul className="max_2xl:hidden flex items-center gap-20 text-sm font-semibold">
+		<ul className="font-raleway max_2xl:hidden flex items-center gap-20 text-sm font-semibold">
 			{pageData.map(({ path, name }, idx) => {
 				return (
 					!path.includes("/:") && (
