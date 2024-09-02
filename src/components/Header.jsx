@@ -8,8 +8,10 @@ function Header() {
 				<Link to="/">DCODELAB</Link>
 			</h1>
 
-			<Gnb />
-			<Util />
+			<nav className="flex items-center gap-40">
+				<Gnb />
+				<Util />
+			</nav>
 		</header>
 	);
 }

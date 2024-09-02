@@ -5,7 +5,7 @@ function Gnb() {
 	const { pathname } = useLocation();
 	// /members => members.split('/') = ['', 'members']
 	return (
-		<ul>
+		<ul className="max_2xl:hidden flex items-center gap-20 text-sm font-semibold">
 			{pageData.map(({ path, name }, idx) => {
 				return (
 					!path.includes("/:") && (
@@ -16,8 +16,7 @@ function Gnb() {
 								//해당 메뉴에만 "on"클래스 추가해서 활성화 처리
 								//className 속성에는 무조건 문자값이 들어와야 되므로 &&연산자를 쓰면 안된다.(boolean값 반환이유)
 								pathname === path ? "on" : ""
-							}
-						>
+							}>
 							<Link key={idx} to={path}>
 								{name}
 							</Link>

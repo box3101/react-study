@@ -6,7 +6,7 @@ import {
 
 function Util() {
 	return (
-		<ul>
+		<ul className="max_2xl:hidden flex gap-6 text-sm">
 			<li>
 				<a href="https://www.facebook.com">
 					<FaFacebook />

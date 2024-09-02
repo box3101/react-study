@@ -19,7 +19,7 @@ function Hero() {
 				loop
 				muted
 				autoPlay
-				className="absolute left-0 top-0 scale-105 object-cover saturate-50"
+				className="absolute left-0 top-0 size-full scale-105 object-cover saturate-50"
 			/>
 			{/* <video src={vid} loop muted autoPlay /> */}
 		</section>
