@@ -10,3 +10,9 @@
 		@apply fixed z-20 flex w-full justify-between border-b border-black/5 bg-white/5 px-[10vw] py-5 backdrop-blur-md;
 	}
 }
+
+@layer components {
+	.btn {
+		@apply font-raleway m-2 inline-flex rounded-md bg-slate-800 px-4 py-2 text-2xl font-semibold text-white;
+	}
+}
