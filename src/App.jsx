@@ -1,26 +1,20 @@
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import { Route, Routes } from "react-router-dom";
-import pageData from "./data/pageData";
-
 function App() {
-	console.log(pageData);
+	// 함수를 만드는 기본(인수가 필요하지 않을때)
+	const handelClick = text => {
+		console.log(text);
+	};
+
+	// 함수를 만드는 기본(인수가 필요할때)
+	const handelClick2 = text => {
+		console.log(text);
+	};
+
 	return (
 		<>
-			<Header />
-
-			<Routes>
-				{pageData.map((data, idx) => {
-					return (
-						<Route
-							path={data.path}
-							element={<data.comp />}
-						/>
-					);
-				})}
-			</Routes>
-
-			{/* <Footer /> */}
+			{/* 인수가 필요하지 않을때 */}
+			<h1 onClick={handelClick}>hello</h1>
+			{/* 인수가 필요할때 */}
+			<h1 onClick={() => handelClick2("abc")}>hello</h1>
 		</>
 	);
 }
