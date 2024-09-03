@@ -31,9 +31,14 @@ function App() {
 	 랜더링(컴포넌트 재호출) 될때마다 매번 실행됨
 	 매번 랜더링 될때마다 실행되면 비효율적이므로 낭비가 심하므로 count 값이 바뀔때만 랜더링 되게
 	*/
+	// useEffect(() => {
+	// 	console.log("랜더링");
+	// }, [count]);
+
+	// mount 될때만 첫 랜더링 될때만 호출
 	useEffect(() => {
 		console.log("랜더링");
-	}, [count]);
+	}, []);
 
 	return (
 		<>
