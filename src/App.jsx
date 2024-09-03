@@ -1,17 +1,22 @@
-function App() {
-	// 리액트 컴포넌트 새로운 화면을 출력을 하기 위해서는
-	// 해당 컴포넌트 재호출되서 새로운 변경점이 반영된 JSX를 반환 (ReRender)
+/*
+	hook : 리액트 16.4 버전부터 새로나온 함수형 컴포넌트에서 사용할 수 있는 전용함수
+	사용규칙 : use로 함수이름 시작
+	사용규칙 : 컴포넌트안에서만 호출가능 (특정 핸들러함수 안쪽에서는 호출불가)
+	useState() : state라는 리액트의 변경점을 야기할 중요한 정보값을 담을 그릇 state생성, state값을 변경도 가능
+	state를 통해서 번거롭게 데이터를 변경해야지만 재랜더링 시키는 이유는 
+	불필요하게 컴포넌트를 재호출하지 않음으로서 연산 비용을 최소화
+	리액트에서 변경점을 야기시키는 중요한 정보값을 효율적으로 관리하기 위함
+*/
+import { useState } from "react";
 
-	/* 
-	컴포넌트에서 사용자 이벤트에 의해서 새로운 변경점이 생기고 
-	그 변경점으로 인해서 컴포넌트를 재랜더링하기 위해서는 변경을 담당하는 중요한 정보값을 일반 변수에 담으면 안됨
-	이유 - 리액트 컴포넌트는 지역변수값이 변경되는 걸로는 컴포넌트의 정보값이 바뀌었다고 인지하지 않음
-	컴포넌트를 재호출할만큼 중요한 데이터인지 아닌지를 구분하기 위해서 state라는 특별한 정보값이 변경되었을 때에만 재 호출
-	*/
-	let result = 0;
+function App() {
+	console.log("app rendered");
+	// [state, state변경함수] = useState(state에 담길 호출 값)
+	let [result, setResult] = useState(0);
+
 	const plus = num => {
-		result += num;
-		console.log(result);
+		console.log(result + num);
+		setResult(result + num);
 	};
 
 	return (
@@ -19,7 +24,7 @@ function App() {
 			<h1>{result}</h1>
 			<button
 				onClick={() => {
-					plus(1);
+					plus(2);
 				}}>
 				+
 			</button>
