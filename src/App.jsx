@@ -1,26 +1,38 @@
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import { Route, Routes } from "react-router-dom";
-import pageData from "./data/pageData";
+import { useState, useRef } from "react";
+
+const boxStyle = {
+	width: 200,
+	height: 200,
+	backgroundColor: "aqua",
+	marginTop: 50,
+	transitionDuration: "0.5s"
+};
 
 function App() {
-	console.log(pageData);
+	const box = useRef(null);
+	const deg = useRef(45);
+	let [Num, setNum] = useState(0);
+
+	console.log(Num);
+	console.log(deg);
+
+	const handleLeft = () => {
+		setNum(--Num);
+		box.current.style.transform = `rotate(${deg.current * Num}deg)`
+	}
+
+	const handleRight = () => {
+		setNum(++Num);
+		box.current.style.transform = `rotate(${deg.current * Num}deg)`
+	}
+
 	return (
 		<>
-			<Header />
-
-			<Routes>
-				{pageData.map((data, idx) => {
-					return (
-						<Route
-							path={data.path}
-							element={<data.comp />}
-						/>
-					);
-				})}
-			</Routes>
-
-			{/* <Footer /> */}
+			<div className="wrap">
+				<button onClick={handleLeft}>left</button>
+				<button onClick={handleRight}>right</button>
+				<article style={boxStyle} ref={box}></article>
+			</div>
 		</>
 	);
 }
