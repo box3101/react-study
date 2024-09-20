@@ -1,0 +1,30 @@
+@tailwind base; /* 요소명 전용 스타일 프리셋 등록 레이어*/
+@tailwind components; /* 공통 스타일 전용 클래스 등록 레이어 */
+@tailwind utilities; /* 기존의 등록했던 프리셋을 조합하는 레이어 */
+
+@layer base {
+	a {
+		@apply text-inherit;
+	}
+	header {
+		@apply fixed z-20 flex w-full justify-between border-b border-black/5 bg-white/5 px-[10vw] py-5 backdrop-blur-md;
+	}
+}
+
+@layer components {
+	.btn {
+		@apply m-2 inline-flex rounded-md bg-slate-800 px-4 py-2 font-raleway text-2xl font-semibold text-white;
+	}
+}
+button {
+	border: 1px solid #000;
+	padding: 50px;
+	background: #000;
+	color: #fff;
+}
+
+input {
+	border: 1px solid #000;
+	padding: 20px;
+}
+
